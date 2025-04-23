@@ -45,4 +45,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function platacoes() {
+        return $this->hasMany(Plantacao::class, 'plantacoes_users', 'id');
+    }
 }
