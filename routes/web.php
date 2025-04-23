@@ -30,15 +30,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/plantacoes/{plantacao}', [PlantacaoController::class, 'destroy'])->name('plantacaodelete');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/semente', [SementeController::class, 'index'])->name('sementeindex');
-    Route::get('/semente/{semente}', [SementeController::class, 'show'])->name('sementeshow');
-    Route::get('/semente/create', [SementeController::class, 'create'])->name('sementecreate');
-    Route::post('/sementes', [SementeController::class, 'store'])->name('sementestore');
-    Route::get('/semente/{semente}/edit', [SementeController::class, 'edit'])->name('sementeedit');
-//está plantaca porque se não da erro
-    Route::put('/semente/{sement}', [SementeController::class, 'update'])->name('sementeupdate');
-    Route::delete('/sementes/{semente}', [SementeController::class, 'destroy'])->name('sementedelete');
-});
-
 require __DIR__.'/auth.php';
