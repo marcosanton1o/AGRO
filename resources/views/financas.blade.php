@@ -46,19 +46,28 @@
     </form>
 </div>
 
-
-
 @foreach ($plantacoes as $plantacao)
     {{ $plantacao->nome }} |
     <a href="{{ route('plantacaoedit', ['plantacao' => $plantacao->id_plantacao]) }}">Editar</a>
-<form action="{{ route('plantacaodelete', ['plantacao' => $plantacao->id_plantacao]) }}" method="post">
-                                                                @csrf
-                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                <button type="submit" class="px-4 py-2 text-white bg-red-600 rounded ">Apagar</button>
-                                                            </form>
-@endforeach
-                    </div>
 
+<form action="{{ route('plantacaodelete', ['plantacao' => $plantacao->id_plantacao]) }}" method="post">
+    @csrf
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit" class="px-4 py-2 text-white bg-red-600 rounded ">Apagar</button>
+</form>
+@endforeach
+<div>
+    <h3>Total de Plantação: {{ $quantidadePlantacoes }}</h3>
+    <h3>Soma do Lucro: {{ $somaLucro }}</h3>
+    <h3>Soma do Custo de Produção: {{ $somaCusto }}</h3>
+    <h3>Lucro Anterior: {{ $lucroAnterior }}</h3>
+    @if ($porcentagemAumento !== null)
+        <h3>Porcentagem de Aumento: {{ $porcentagemAumento }}%</h3>
+    @else
+        <h3>Não há dados suficientes para calcular a porcentagem de aumento.</h3>
+    @endif
+</div>
+            </div>
         </div>
     </div>
 </x-app-layout>

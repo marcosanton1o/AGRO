@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plantacao;
-use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use App\Http\Requests\StorePlantacaoRequest;
 use App\Http\Requests\UpdatePlantacaoRequest;
 
@@ -16,17 +17,43 @@ class PlantacaoController extends Controller
 
     public function __construct()
     {
-    $this->plantacao = new Plantacao();
+        $this->plantacao = new Plantacao();
     }
 
     public function index()
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    $plantacoes = $user->plantacoes;
+        $userId = $user->id;
 
-    return view('financas', compact('plantacoes'));
-}
+        $plantacoes = $user->plantacoes;
+
+        $quantidadePlantacoes = Plantacao::where('plantacoes_users', $userId)->count();
+
+        $somaLucro = Plantacao::where('plantacoes_users', $userId)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->sum('lucro');
+
+        $somaCusto = Plantacao::where('plantacoes_users', $userId)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->sum('custo_producao');
+
+            $lucroAnterior = Plantacao::where('plantacoes_users', $userId)
+            ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+            ->whereYear('created_at', Carbon::now()->subMonth()->year)
+            ->sum('lucro');
+
+        $lucroAtual = $somaLucro;
+
+        if ($lucroAnterior > 0) {
+            $porcentagemAumento = (($lucroAtual - $lucroAnterior) / $lucroAnterior) * 100;
+        } else {
+            $porcentagemAumento = null;
+        }
+        return view('financas', compact('plantacoes', 'somaLucro', 'somaCusto', 'quantidadePlantacoes', 'lucroAnterior', 'porcentagemAumento'));
+    }
 
     public function create()
     {
