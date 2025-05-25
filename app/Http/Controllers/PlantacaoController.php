@@ -25,15 +25,10 @@ class PlantacaoController extends Controller
 
         $quantidadePlantacoes = Plantacao::where('plantacoes_users', auth()->id())->count();
 
-        $somaCusto = Plantacao::where('plantacoes_users', Auth::id())
-        ->whereMonth('created_at', Carbon::now()->month)
-        ->whereYear('created_at', Carbon::now()->year)
-        ->sum('lucro');
-
         $somaLucro = Plantacao::where('plantacoes_users', Auth::id())
         ->whereMonth('created_at', Carbon::now()->month)
         ->whereYear('created_at', Carbon::now()->year)
-        ->sum('custo_producao');
+        ->sum('lucro');
 
         $lucroAnterior = Plantacao::where('plantacoes_users', $userId)
         ->whereMonth('created_at', Carbon::now()->subMonth()->month)
