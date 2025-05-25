@@ -23,9 +23,8 @@ class UpdatePlantacaoRequest extends FormRequest
     {
         return [
             'nome' => 'required|string|max:45',
-            'plantacoes_users' => 'required|exists:users,idusers',
             'lucro' => 'required|numeric|min:0',
-            'status' => 'required|boolean',
+            'status' => 'required',
             'custo_producao' => 'required|numeric|min:0',
         ];
     }

@@ -23,10 +23,9 @@ class StorePlantacaoRequest extends FormRequest
     {
         return [
             'nome' => 'required|string|max:45',
-            'plantacoes_users' => 'required|exists:users,idusers',
-            'lucro' => 'required|numeric|min:0',
-            'status' => 'required|boolean',
-            'custo_producao' => 'required|numeric|min:0',
+            'lucro' => 'required|numeric|min:1',
+            'status' => 'required|numeric',
+            'custo_producao' => 'required|numeric|min:1',
         ];
     }
 }

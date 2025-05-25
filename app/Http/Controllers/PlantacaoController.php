@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\plantacao;
+use App\Models\Plantacao;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StorePlantacaoRequest;
 use App\Http\Requests\UpdatePlantacaoRequest;
 
@@ -18,31 +20,13 @@ class PlantacaoController extends Controller
     }
 
     public function index()
-    {
-        $plantID = Auth::id();
+{
+    $user = Auth::user();
 
-        $plantacoes = User::where('plantacoes_users', $plantID)->with('plantacoes')->get();
+    $plantacoes = $user->plantacoes;
 
-        $quantidadePlantacoes = Plantacao::where('plantacoes_users', auth()->id())->count();
-
-        $somaLucro = Plantacao::where('plantacoes_users', Auth::id())
-        ->whereMonth('created_at', Carbon::now()->month)
-        ->whereYear('created_at', Carbon::now()->year)
-        ->sum('lucro');
-
-        $lucroAnterior = Plantacao::where('plantacoes_users', $userId)
-        ->whereMonth('created_at', Carbon::now()->subMonth()->month)
-        ->whereYear('created_at', Carbon::now()->subMonth()->year)
-        ->sum('lucro');
-
-        if ($lucroAnterior > 0) {
-            $porcentagemAumento = (($lucroAtual - $lucroAnterior) / $lucroAnterior) * 100;
-        } else {
-            $porcentagemAumento = null;
-        }
-
-        return view('financas', compact('plantacoes','somaLucro','quantidadePlantacoes','lucroAnterior','porcentagemAumento'));
-    }
+    return view('financas', compact('plantacoes'));
+}
 
     public function create()
     {
@@ -50,18 +34,17 @@ class PlantacaoController extends Controller
     }
 
     public function store(StorePlantacaoRequest $request)
-    {
-        $created = $this->plantacao->create([
-            'nome' => $request->input('nome'),
-            'lucro' => $request->input('lucro'),
-            'status' => $request->input('status'),
-            'custo_producao' => $request->input('custo_producao'),
-            'plantacoes_users' => Auth::id(),
-        ]);
-if($created){
-        return redirect()->route('plantacaoindex')->with('criado', 'criado');
+{
+    $created = $this->plantacao->create([
+        'plantacoes_users' => Auth::id(),
+        'nome' => $request->input('nome'),
+        'lucro' => $request->input('lucro'),
+        'status' => $request->input('status'),
+        'custo_producao' => $request->input('custo_producao'),
+    ]);
+
+    return redirect()->route('plantacaoindex')->with('criado', 'Plantação criada com sucesso!');
 }
-    }
 
     /**
      * Display the specified resource.
@@ -74,17 +57,20 @@ if($created){
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(plantacao $plantacao)
+    public function edit($id)
     {
-        //
+        $plantacao = $this->plantacao->find($id);
+
+        return view('edit', compact('plantacao'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePlantacaoRequest $request, $id)
+    public function update(UpdatePlantacaoRequest $request, string $id)
     {
-        $updated=$this->plantacao->where('id_plantacao',$id)->update($request->except(['_token','_method']));
+        $updated = $this->plantacao->where('id_plantacao',$id)->update($request->except(['_token','_method']));
 
         if($updated){
             return redirect()->route('plantacaoindex')->with('editado', 'editado');
@@ -98,6 +84,6 @@ if($created){
     {
         $this->plantacao->where('id_plantacao', $id)->delete();
 
-        return redirect()->route('avisoindex')->with('apagado','apagado');;
+        return redirect()->route('plantacaoindex')->with('apagado','apagado');
     }
 }

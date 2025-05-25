@@ -2,25 +2,29 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
-class plantacao extends Model
+class Plantacao extends Model
 {
+    use HasFactory, Notifiable;
 
-    use HasFactory;
-
-    protected $table = 'platacoes';
-    protected $primaryKey = 'id_platacoes';
+    protected $table = 'plantacoes';
+    protected $primaryKey = 'id_plantacao';
 
     protected $fillable = [
         'nome',
-        'plantacoes_users',
         'lucro',
         'status',
         'custo_producao',
+        'plantacoes_users',
     ];
 
-    public function user() {
-        return $this->belongsTo(User::class, 'plantacoes_users', 'id');
-    }
+    public function user()
+{
+    return $this->belongsTo(User::class, 'plantacoes_users', 'id');
 }
+
+}
+
