@@ -1,16 +1,16 @@
 .pagina {
     margin-left: 250px;
-  
+    padding-top: 70px;
 }
 .banner {
     border-radius: 20px;
-     overflow: hidden;
+    overflow: hidden;
 }
 .dashboard-card {
     background: white;
     border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     height: 100%;
     display: flex;
@@ -18,24 +18,24 @@
 }
 
 .profit-card {
-    border-top: 4px solid #4CAF50;
+    border-top: 4px solid #4caf50;
     position: relative;
     overflow: hidden;
 }
 
 .profit-card::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    background: linear-gradient(90deg, #4caf50, #8bc34a);
 }
 
 .card-icon {
     font-size: 2.5rem;
-    color: #4CAF50;
+    color: #4caf50;
     margin-bottom: 15px;
 }
 
@@ -64,7 +64,7 @@
 
 .progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    background: linear-gradient(90deg, #4caf50, #8bc34a);
     border-radius: 4px;
     transition: width 0.5s ease;
 }
@@ -81,51 +81,61 @@
 }
 
 .trend.up {
-    color: #4CAF50;
+    color: #4caf50;
 }
 
 .trend.down {
-    color: #F44336;
+    color: #f44336;
 }
 
 .trend.neutral {
-    color: #607D8B;
+    color: #607d8b;
 }
 
 .dashboard-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
-    .lucro-container {
-                width: 90%;
-                max-width: 300px;
-                margin: 30px 60px;
-                padding: 20px;
-                background: white;
-                border-radius: 12px;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                border-left: 4px solid #4CAF50;
-                height: 150px;
-            }
-            
-            .lucro-icon {
-                font-size: 1.8rem;
-                color: #4CAF50;
-            }
-            
-            .lucro-content h3 {
-                margin: 0;
-                font-size: 1rem;
-                color: #555;
-                font-weight: 600;
-            }
-            
-            .lucro-content p {
-                margin: 5px 0 0;
-                font-size: 1.5rem;
-                font-weight: 700;
-                color: #2E7D32;
-            }
+.lucro-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 15px 10px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-left: 4px solid #4caf50;
+    height: 150px;
+}
+
+.lucro-icon {
+    font-size: 1.8rem;
+    color: #4caf50;
+}
+
+.lucro-content h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+    font-weight: 600;
+}
+
+.lucro-content p {
+    margin: 5px 0 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2e7d32;
+}
+.conteiner {
+    text-align: center;
+    margin-left: 63px;
+    width: 90%;
+    margin-bottom: 15px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px;
+    border: solid 2px rgb(205, 205, 205);
+}
