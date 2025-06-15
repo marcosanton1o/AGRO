@@ -1,3 +1,33 @@
 .pagina {
     margin-left: 260px;
 }
+
+#conteinerCreate {
+    margin-top: 10%;
+    background-color: white;
+    width: 100%;
+    max-width: 800px;
+    color: #333;
+    border-radius: 20px;
+    border: 1px solid #c8d6c3;
+    padding: 50px;
+}
+
+#conteinerCreate input[type="text"],
+#conteinerCreate input[type="number"],
+#conteinerCreate select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #c8d6c3;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #333333;
+    transition: border-color 0.3s;
+}
+
+#butao {
+    border: none;
+    background-color: #39bda7 ;
+    color: white;
+    margin-left: 250px;
+}
