@@ -154,10 +154,9 @@
                                                                     method="POST" class="d-inline">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn btn-danger btn-sm">
-                                                                        Apagar
-                                                                    </button>
+                                                                    <button type="button"
+                                                                        onclick="abrirModal({{ $plantacao->id_plantacao }})"
+                                                                        class="btn btn-danger btn-sm">Apagar</button>
                                                                 </form>
                                                             </td>
                                                         </tr>
@@ -175,5 +174,35 @@
         </section>
     </div>
     </div>
+    <div id="popup-modal"
+        class="hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-center w-full h-full">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full text-center">
+            <h3 class="mb-5 text-lg font-normal text-gray-700">Tem certeza que deseja excluir esta plantação?</h3>
+            <form id="delete-form" method="POST" action="">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                    class="text-white bg-red-600 hover:bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2">
+                    Sim, excluir
+                </button>
+                <button type="button" onclick="fecharModal()"
+                    class="text-gray-700 bg-gray-200 hover:bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                    Cancelar
+                </button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function abrirModal(id) {
+            const modal = document.getElementById('popup-modal');
+            modal.classList.remove('hidden');
+            document.getElementById('delete-form').action = `/plantacoes/${id}`;
+        }
+
+        function fecharModal() {
+            document.getElementById('popup-modal').classList.add('hidden');
+        }
+    </script>
+
 
 </x-app-layout>
