@@ -14,6 +14,14 @@ Route::get('/register', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/plantacoes/create', function () {
+    return view('createPlantacao'); 
+})->middleware(['auth', 'verified'])->name('createPlantacao');
+Route::get('/plantacoes', function () {
+    return view('financas');
+})->middleware(['auth', 'verified'])->name('plantacaoindex');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

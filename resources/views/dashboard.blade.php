@@ -1,17 +1,14 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    @endpush
+    <div class="pagina">
+        <<div class="banner"
+            style="border-radius: 20px; overflow: hidden; width: 90%; margin: 0 auto; padding-top: 80px;">
+            <img src="{{ asset('storage/banner.png') }}" alt="Banner"
+                style="width: 100%; display: block; border-radius: inherit;">
     </div>
+
+    </div>
+
 </x-app-layout>
