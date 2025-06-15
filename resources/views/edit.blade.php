@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="flex justify-center">
-                        <button id="butao" type="submit" class="px-4 py-2 my-3  bg-blue-600 rounded">
+                        <button id="butao" type="submit" class="px-4 py-2 my-3 rounded">
                             Editar Plantação
                         </button>
                     </div>

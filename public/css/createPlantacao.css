@@ -3,7 +3,7 @@
 }
 
 #conteinerCreate {
-    margin-top: 10%;
+    margin-top: 7%;
     background-color: white;
     width: 100%;
     max-width: 800px;
@@ -29,5 +29,4 @@
     border: none;
     background-color: #39bda7 ;
     color: white;
-    margin-left: 250px;
 }

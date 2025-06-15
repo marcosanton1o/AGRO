@@ -6,8 +6,6 @@
     @endpush
 
     <div class="pagina" style="margin-left: 260px; margin-top: 50px;">
-
-
         <div class="metrics-grid" style="padding-top: 50px; margin-left: 10px; margin-right: 10px;">
 
             <div class="metric-card">
@@ -72,6 +70,48 @@
                 </div>
             </div>
         </div>
+        @if (session('criado'))
+            <div class="space-y-2 p-4">
+                <div role="alert"
+                    class="bg-emerald-50 border-l-4 border-emerald-400 text-emerald-800 p-3 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-emerald-100 transform hover:scale-[1.02]">
+                    <svg stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                        class="h-5 w-5 flex-shrink-0 mr-2 text-emerald-500" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linejoin="round"
+                            stroke-linecap="round"></path>
+                    </svg>
+                    <p class="text-sm font-medium" style="margin-top: 15px">Plantação criada com sucesso!</p>
+                </div>
+            </div>
+        @endif
+
+        @if (session('editado'))
+            <div class=" p-4">
+                <div role="alert"
+                    class="bg-emerald-50 border-l-4 border-emerald-400 text-emerald-800 p-3 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-emerald-100 transform hover:scale-[1.02]">
+                    <svg stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                        class="h-5 w-5 flex-shrink-0 mr-2 text-emerald-500" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linejoin="round"
+                            stroke-linecap="round"></path>
+                    </svg>
+                    <p class="text-sm font-medium" style="margin-top: 15px">Plantação atualizada com sucesso!</p>
+                </div>
+            </div>
+        @endif
+
+        @if (session('apagado'))
+            <div class="space-y-2 p-4">
+                <div role="alert"
+                    class="bg-amber-50 border-l-4 border-amber-400 text-amber-800 p-3 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-amber-100 transform hover:scale-[1.02]">
+                    <svg stroke="currentColor" viewBox="0 0 24 24" fill="none"
+                        class="h-5 w-5 flex-shrink-0 mr-2 text-amber-500" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2"
+                            stroke-linejoin="round" stroke-linecap="round"></path>
+                    </svg>
+                    <p class="text-sm font-medium" style="margin-top: 15px">Plantação excluída com sucesso!</p>
+                </div>
+            </div>
+        @endif
+
         <a href="{{ route('createPlantacao') }}" class="button">Adicionar</a>
 
         <section class="intro rounded">
@@ -109,11 +149,16 @@
                                                                 </a>
                                                             </td>
                                                             <td>
-                                                                <button
-                                                                    onclick="showDeleteModal('{{ $plantacao->id_plantacao }}')"
-                                                                    class="btn btn-danger btn-sm">
-                                                                    <i class='bx bx-trash'></i> Apagar
-                                                                </button>
+                                                                <form
+                                                                    action="{{ route('plantacaodelete', ['plantacao' => $plantacao->id_plantacao]) }}"
+                                                                    method="POST" class="d-inline">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm">
+                                                                        Apagar
+                                                                    </button>
+                                                                </form>
                                                             </td>
                                                         </tr>
                                                     @endforeach
