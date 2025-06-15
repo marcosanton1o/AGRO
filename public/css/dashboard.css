@@ -6,3 +6,126 @@
     border-radius: 20px;
      overflow: hidden;
 }
+.dashboard-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profit-card {
+    border-top: 4px solid #4CAF50;
+    position: relative;
+    overflow: hidden;
+}
+
+.profit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+.card-content h3 {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.amount {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #8BC34A);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+}
+
+.comparison {
+    margin-top: auto;
+}
+
+.trend {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+.trend.up {
+    color: #4CAF50;
+}
+
+.trend.down {
+    color: #F44336;
+}
+
+.trend.neutral {
+    color: #607D8B;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+    .lucro-container {
+                width: 90%;
+                max-width: 300px;
+                margin: 30px 60px;
+                padding: 20px;
+                background: white;
+                border-radius: 12px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                border-left: 4px solid #4CAF50;
+                height: 150px;
+            }
+            
+            .lucro-icon {
+                font-size: 1.8rem;
+                color: #4CAF50;
+            }
+            
+            .lucro-content h3 {
+                margin: 0;
+                font-size: 1rem;
+                color: #555;
+                font-weight: 600;
+            }
+            
+            .lucro-content p {
+                margin: 5px 0 0;
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #2E7D32;
+            }

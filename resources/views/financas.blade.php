@@ -109,14 +109,11 @@
                                                                 </a>
                                                             </td>
                                                             <td>
-                                                                <form
-                                                                    action="{{ route('plantacaodelete', ['plantacao' => $plantacao->id_plantacao]) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn btn-danger btn-sm">Apagar</button>
-                                                                </form>
+                                                                <button
+                                                                    onclick="showDeleteModal('{{ $plantacao->id_plantacao }}')"
+                                                                    class="btn btn-danger btn-sm">
+                                                                    <i class='bx bx-trash'></i> Apagar
+                                                                </button>
                                                             </td>
                                                         </tr>
                                                     @endforeach

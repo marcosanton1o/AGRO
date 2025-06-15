@@ -40,7 +40,7 @@ class PlantacaoController extends Controller
             ->whereYear('created_at', Carbon::now()->year)
             ->sum('custo_producao');
 
-            $lucroAnterior = Plantacao::where('plantacoes_users', $userId)
+        $lucroAnterior = Plantacao::where('plantacoes_users', $userId)
             ->whereMonth('created_at', Carbon::now()->subMonth()->month)
             ->whereYear('created_at', Carbon::now()->subMonth()->year)
             ->sum('lucro');
@@ -53,7 +53,50 @@ class PlantacaoController extends Controller
             $porcentagemAumento = null;
         }
         return view('financas', compact('plantacoes', 'somaLucro', 'somaCusto', 'quantidadePlantacoes', 'lucroAnterior', 'porcentagemAumento'));
+
     }
+
+    public function dashboard()
+    {
+        $user = Auth::user();
+        $userId = $user->id;
+
+        $plantacoes = $user->plantacoes;
+
+        $quantidadePlantacoes = Plantacao::where('plantacoes_users', $userId)->count();
+
+        $somaLucro = Plantacao::where('plantacoes_users', $userId)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->sum('lucro');
+
+        $somaCusto = Plantacao::where('plantacoes_users', $userId)
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->sum('custo_producao');
+
+        $lucroAnterior = Plantacao::where('plantacoes_users', $userId)
+            ->whereMonth('created_at', Carbon::now()->subMonth()->month)
+            ->whereYear('created_at', Carbon::now()->subMonth()->year)
+            ->sum('lucro');
+
+        $lucroAtual = $somaLucro;
+
+        $porcentagemAumento = $lucroAnterior > 0
+            ? (($lucroAtual - $lucroAnterior) / $lucroAnterior) * 100
+            : null;
+
+        return view('dashboard', compact(
+            'plantacoes',
+            'somaLucro',
+            'somaCusto',
+            'quantidadePlantacoes',
+            'lucroAnterior',
+            'porcentagemAumento'
+        ));
+    }
+
+
 
     public function create()
     {
@@ -61,17 +104,17 @@ class PlantacaoController extends Controller
     }
 
     public function store(StorePlantacaoRequest $request)
-{
-    $created = $this->plantacao->create([
-        'plantacoes_users' => Auth::id(),
-        'nome' => $request->input('nome'),
-        'lucro' => $request->input('lucro'),
-        'status' => $request->input('status'),
-        'custo_producao' => $request->input('custo_producao'),
-    ]);
+    {
+        $created = $this->plantacao->create([
+            'plantacoes_users' => Auth::id(),
+            'nome' => $request->input('nome'),
+            'lucro' => $request->input('lucro'),
+            'status' => $request->input('status'),
+            'custo_producao' => $request->input('custo_producao'),
+        ]);
 
-    return redirect()->route('plantacaoindex')->with('criado', 'Plantação criada com sucesso!');
-}
+        return redirect()->route('plantacaoindex')->with('criado', 'Plantação criada com sucesso!');
+    }
 
     /**
      * Display the specified resource.
@@ -97,11 +140,11 @@ class PlantacaoController extends Controller
      */
     public function update(UpdatePlantacaoRequest $request, string $id)
     {
-        $updated = $this->plantacao->where('id_plantacao',$id)->update($request->except(['_token','_method']));
+        $updated = $this->plantacao->where('id_plantacao', $id)->update($request->except(['_token', '_method']));
 
-        if($updated){
+        if ($updated) {
             return redirect()->route('plantacaoindex')->with('editado', 'editado');
-    }
+        }
     }
 
     /**
@@ -111,6 +154,6 @@ class PlantacaoController extends Controller
     {
         $this->plantacao->where('id_plantacao', $id)->delete();
 
-        return redirect()->route('plantacaoindex')->with('apagado','apagado');
+        return redirect()->route('plantacaoindex')->with('apagado', 'apagado');
     }
 }

@@ -11,9 +11,11 @@ Route::get('/', function () {
 Route::get('/register', function () {
     return view('auth.register')->name('register');
 });
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard', [PlantacaoController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
 Route::get('/plantacoes/create', function () {
     return view('createPlantacao'); 
 })->middleware(['auth', 'verified'])->name('createPlantacao');
